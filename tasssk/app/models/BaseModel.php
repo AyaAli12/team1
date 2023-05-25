@@ -1,8 +1,10 @@
 <?php
+
 namespace app\models;
 
 
-abstract class Model{
+abstract class Model
+{
     protected $id;
 
     public function get_id()
@@ -10,9 +12,8 @@ abstract class Model{
         return $this->id;
     }
 
-    public function set_id($id){
-        $this->id=$id;
+    public function set_id($id)
+    {
+        $this->id = $id;
     }
-   
 }
-
