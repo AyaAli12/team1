@@ -78,4 +78,48 @@ class Family extends Model
     {
         $this->address = $address;
     }
-}
+
+
+    public static function found($address){
+        $found="SELECT * FROM families WHERE address='$address'";
+        $model=new Model();
+        $conn=$model->get_conn();
+        $found_query=mysqli_query($conn,$found);
+        $familys=array();
+        while ($row=mysqli_fetch_assoc($found_query)) {
+    
+            $Family=new Family();
+            $Family->set_id($row['id']);
+            $Family->set_fname($row['fname']);
+            $Family->set_mname($row['mname']);
+           $Family->set_lname($row['lname']);
+           $Family->set_num_of_members($row['num_of_members']);
+           $Family->set_state($row['functional_state']);
+           $Family->set_phone($row['phone']);
+           $Family->set_address($row['address']);
+           $familys[]=$Family;
+        }
+            return $familys;
+    }
+    public function update(){
+        $update="UPDATE families SET fname='$this->fname', mname='$this->mname', lname='$this->lname', num_of_members='$this->num_of_members',
+       functional_state='$this->state', phone='$this->phone', address='$this->address' WHERE id='$this->id'";
+       $query_up=mysqli_query($this->conn,$update);
+    }
+            
+    public function create(){ 
+       $add="INSERT INTO families(fname,mname,lname,num_of_members,functional_state,phone,address) VALUES ('$this->fname','$this->mname',
+       '$this->lname','$this->num_of_members','$this->state','$this->phone','$this->address')";
+       $query_add=mysqli_query($this->conn,$add);
+       $this->id = mysqli_insert_id($conn);
+    }
+    
+     public static function delete($id)
+     {
+        $model=new Model();
+        $conn=$model->get_conn();
+        $delete=" DELETE FROM families WHERE id='$id' ";
+        $query_add=mysqli_query($conn,$delete);
+     }
+     }
+

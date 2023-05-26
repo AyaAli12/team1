@@ -1,5 +1,6 @@
 <center>
 <h1>Users</h1>
+<a href="/darrebni/tasssk/create">Add new employee</a>
 <table>
     <thead>
         <tr>
@@ -12,15 +13,18 @@
     <tbody>
         <?php foreach ($users as $user): ?>
             <tr>
-                <td><?= $user->get_id() ?></td>
-                <td><?= $user->get_name() ?></td>
-                <td><?= $user->get_password() ?></td>
+                <td><?= $user->id ?></td>
+                <td><?= $user->name?></td>
+                <td><?= $user->password ?></td>
                 <td>
-                    <form method="post" action="/darrebni/tasssk/edit/<?= $user->get_id() ?>">
+                    <form method="post" action="/darrebni/tasssk/edit">
+                    <input type="hidden" name="id" value=<?= $user->id ?>>
+
                         <button>Edit</button>
                     </form>
-                    <form method="post" action="/darrebni/tasssk/delete/<?= $user->get_id() ?>">
-                        
+                    <form method="post" action="/darrebni/tasssk/delete">
+                    <input type="hidden" name="id" value=<?= $user->id ?>>
+
                         <button>Delete</button>
                     </form>
                 </td>

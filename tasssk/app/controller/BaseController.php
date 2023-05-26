@@ -1,11 +1,10 @@
 <?php
 namespace app\controllers;
-// require_once __DIR__."/../../config/config.php";
 abstract class BaseController{
-    protected $conn;
-
-    public function __construct($conn){
-        $this->conn=$conn;
+    protected function load_view(string $view, array $data = []) {
+        extract($data);
+        require __DIR__ . '/../../views/layout.php';
     }
 }
+
 

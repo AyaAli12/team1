@@ -31,56 +31,32 @@ class User extends Model
         $this->password = $password;
     }
 
-    public static function getAllUsers($conn)
-    {
-        $query = "SELECT * FROM users ";
-        $result = mysqli_query($conn, $query);
-        $users = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $user = new User();
-            $user->set_id($row['id']);
-            $user->set_name($row["name"]);
-            $user->set_password($row["password"]);
-            $users[] = $user;
-        }
-        return $users;
-    }
 
-    public static function getUserById($conn, $id)
+    public static function find_user($name, $password)
     {
-        $query = "SELECT * FROM users WHERE id = $id";
-        $result = mysqli_query($conn, $query);
-        $row = mysqli_fetch_assoc($result);
-        $user = new User();
-        $user->set_id($row['id']);
-        $user->set_name($row["name"]);
-        $user->set_password($row["password"]);
-        return $user;
-    }
-
-    public static function find_user($conn, $name, $password)
-    {
+        $model=new Model();
+        $conn=$model->get_conn();
         $query = "SELECT * FROM users WHERE name = '$name' AND password = '$password'";
         $result = mysqli_query($conn, $query);
         $user = mysqli_fetch_assoc($result);
         return $user;
     }
 
-    public function create($conn)
+    public function create()
     {
         $query = "INSERT INTO users (name , password) VALUES ('$this->name' , $this->password)";
-        $result = mysqli_query($conn, $query);
+        $result = mysqli_query($this->conn, $query);
     }
 
-    public function update($conn)
+    public function update()
     {
-        $query = "UPDATE users SET name = '$this->name' , password = '$this->password'";
+        $query = "UPDATE users SET name = '$this->name' , password = '$this->password' where id='$this->id'";
         $result = mysqli_query($conn, $query);
     }
 
-    public static function delete($conn, $id)
+    public static function delete( $id)
     {
         $query = "DELETE FROM users WHERE id = '$id'";
-        $result = mysqli_query($conn, $query);
+        $result = mysqli_query($this->conn, $query);
     }
 }

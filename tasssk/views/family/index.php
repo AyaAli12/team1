@@ -23,20 +23,21 @@
     <tbody>
         <?php foreach ($families as $family): ?>
             <tr>
-                <td><?= $family->get_id() ?></td>
-                <td><?= $family->get_fname() ?></td>
-                <td><?= $family->get_mname() ?></td>
-                <td><?= $family->get_lname() ?></td>
-                <td><?= $family->get_state() ?></td>
-                <td><?= $family->get_phone() ?></td>
-                <td><?= $family->get_num_of_members() ?></td>
-                <td><?= $family->get_address() ?></td>
+                <td><?= $family->id ?></td>
+                <td><?= $family->fname ?></td>
+                <td><?= $family->mname ?></td>
+                <td><?= $family->lname ?></td>
+                <td><?= $family->functional_state ?></td>
+                <td><?= $family->phone ?></td>
+                <td><?= $family->num_of_members ?></td>
+                <td><?= $family->address ?></td>
                 <td>
-                    <form method="post" action="/darrebni/tasssk/edit/<?= $family->get_id() ?>">
+                    <form method="post" action="/darrebni/tasssk/edit_family">
+                    <input type="hidden" name="id" value=<?= $family->id ?>>
                         <button>Edit</button>
                     </form>
-                    <form method="post" action="/darrebni/tasssk/delete/<?= $family->get_id() ?>">
-                        
+                    <form method="post" action="/darrebni/tasssk/delete_family">
+                    <input type="hidden" name="id" value=<?= $family->id ?>>
                         <button>Delete</button>
                     </form>
                 </td>
@@ -46,8 +47,11 @@
 
     </tbody>
 </table>
+<br><br>
+<h3>search for families by thier address:</h3>
+    
 <form method="post" action="/darrebni/tasssk/search">
-<select id="address" name="address" value=<?= $family->get_address();?>>
+<select id="address" name="address">
 		       <option value="center of city">center of city</option>
 		       <option value="suburb">suburb</option>
                <option value="eastern_countryside">eastern_countryside</option>
@@ -55,6 +59,6 @@
                <option value="western_countryside">western_countryside</option>
                <option value="southern_countryside">southern_countryside</option>
             </select><br>
-          <button type='submit'>search</button>
+          <button type='submit' name='search'>search</button>
                     </form>
         </center>
