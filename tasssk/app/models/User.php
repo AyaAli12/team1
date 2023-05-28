@@ -51,12 +51,14 @@ class User extends Model
     public function update()
     {
         $query = "UPDATE users SET name = '$this->name' , password = '$this->password' where id='$this->id'";
-        $result = mysqli_query($conn, $query);
+        $result = mysqli_query($this->conn, $query);
     }
 
     public static function delete( $id)
     {
+        $model=new Model();
+        $conn=$model->get_conn();
         $query = "DELETE FROM users WHERE id = '$id'";
-        $result = mysqli_query($this->conn, $query);
+        $result = mysqli_query($conn, $query);
     }
 }

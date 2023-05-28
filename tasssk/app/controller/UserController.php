@@ -70,10 +70,11 @@ class UserController extends BaseController
     public function update()
     {
         $id = $_POST['id'];
-        $user = User::getUserById( $id);
+        $user=new User();
+        $user->set_id($id);
         $user->set_name($_POST['name']);
         $user->set_password($_POST['password']);
-        $user->update($this->conn);
+        $user->update();
         header('Location: /darrebni/tasssk/');
         exit;
     }
@@ -81,7 +82,7 @@ class UserController extends BaseController
     public function delete()
     {
         $id = $_POST['id'];
-        User::delete($this->conn, $id);
+        User::delete($id);
         header('location: /darrebni/tasssk');
     }
 }
